@@ -57,15 +57,15 @@ export async function activate(context: ExtensionContext) {
   let clientOptions: LanguageClientOptions = {
     // Register the server for plain text documents
     documentSelector: [{ scheme: "file", language: "LALRPOP" }],
-    synchronize: {
-      // Notify the server about file changes to '.clientrc files contained in the workspace
-      fileEvents: workspace.createFileSystemWatcher("**/.clientrc"),
-    },
+    // synchronize: {
+    //   // Notify the server about file changes to '.clientrc files contained in the workspace
+    //   fileEvents: workspace.createFileSystemWatcher("**/.clientrc"),
+    // },
     traceOutputChannel,
   };
 
   // Create the language client and start the client.
-  client = new LanguageClient("lalrpop-lsp", "LALRPOP language server", serverOptions, clientOptions);
+  client = new LanguageClient("lalrpop-language-server", "LALRPOP language server", serverOptions, clientOptions);
   client.start();
 }
 

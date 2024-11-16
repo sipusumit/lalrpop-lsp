@@ -30,6 +30,24 @@
 			"problemMatcher": [
 				"$tsc-watch"
 			]
+		},
+		{
+			"label": "cargo build",
+			"type": "shell",
+			"command": "cargo build",
+			"problemMatcher": [
+				"$rustc"
+			]
+		},
+		{
+			"label": "cargo build and npm watch",
+			"dependsOn": [
+				"cargo build",
+				{
+					"type": "npm",
+					"script": "watch",
+				}
+			],
 		}
 	]
 }

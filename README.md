@@ -25,11 +25,12 @@ adding this line  to your `settings.json`
  "editor.semanticHighlighting.enabled": true,
 }
 ```
+
 - [ ] syntactic error diagnostic
 
-- [ ] code completion  
+- [ ] code completion
 
-- [ ] go to definition  
+- [ ] go to definition
 
 - [ ] find reference
 

@@ -1,6 +1,9 @@
-# boilerplate for a  rust language server powered by `tower-lsp` 
+# LALRPOP language server
+
 ## Introduction
-This repo is a template for `tower-lsp`, a useful github project template which makes writing new language servers easier.
+This repo holds a language server for `LALRPOP`, an LR(1) parser generator for Rust.
+The project is powered by `tower-lsp`, a useful github project template which makes writing new language servers easier.
+
 ## Development using VSCode
 1. `pnpm i`
 2. `cargo build`
@@ -15,7 +18,7 @@ This repo is a template for `tower-lsp`, a useful github project template which 
 
 ## Features
 
-- [ ] InlayHint for LiteralType
+<!-- - [ ] InlayHint for LiteralType
 
 - [ ] semantic token   
 make sure your semantic token is enabled, you could enable your `semantic token` by
@@ -28,11 +31,11 @@ adding this line  to your `settings.json`
 
 - [ ] syntactic error diagnostic
 
-- [ ] code completion
+- [ ] code completion -->
 
-- [ ] go to definition
+- [x] go to definition
 
-- [ ] find reference
+- [x] find reference
 
 - [ ] rename
 

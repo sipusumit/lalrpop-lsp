@@ -503,6 +503,7 @@ dependencies = [
 [[package]]
 name = "lalrpop"
 version = "0.22.0"
+source = "git+https://github.com/LighghtEeloo/lalrpop.git?branch=lsp#ab778b02541674f1b113e6d05d9f6ebc83a4d3d3"
 dependencies = [
  "ascii-canvas",
  "bit-set",
@@ -534,6 +535,7 @@ dependencies = [
 [[package]]
 name = "lalrpop-util"
 version = "0.22.0"
+source = "git+https://github.com/LighghtEeloo/lalrpop.git?branch=lsp#ab778b02541674f1b113e6d05d9f6ebc83a4d3d3"
 dependencies = [
  "regex-automata",
  "rustversion",

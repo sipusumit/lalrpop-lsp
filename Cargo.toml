@@ -14,5 +14,5 @@ tower-lsp = { version = "0.20.0", features = ["proposed"] }
 dashmap = { version = "6.1" }
 # log = "0.4.14"
 # im-rc = "15.0.0"
-# lalrpop = { git = "https://github.com/LighghtEeloo/lalrpop.git", branch = "lsp", features = ["lsp"] }
-lalrpop = { path = "../../Box/Repo/lalrpop/lalrpop", features = ["lsp"] }
+lalrpop = { git = "https://github.com/LighghtEeloo/lalrpop.git", branch = "lsp", features = ["lsp"] }
+# lalrpop = { path = "../../Box/Repo/lalrpop/lalrpop", features = ["lsp"] }

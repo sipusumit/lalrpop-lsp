@@ -26,14 +26,20 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "languages": [
-      {
-        "id": "LALRPOP",
-        "extensions": [
-          ".lalrpop"
-        ]
-      }
-    ],
+    "languages": [{
+      "id": "lalrpop",
+      "aliases": ["LALRPOP", "lalrpop"],
+      "extensions": ["lalrpop"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+        "language": "lalrpop",
+        "scopeName": "source.lalrpop",
+        "path": "./syntaxes/lalrpop.tmLanguage.json",
+        "embeddedLanguages": {
+            "meta.embedded.starter": "rust"
+        }
+    }],
     "configuration": {
       "type": "object",
       "title": "lalrpop-language-server",

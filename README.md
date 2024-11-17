@@ -4,6 +4,7 @@
 This repo holds a language server for [LALRPOP](https://github.com/lalrpop/lalrpop), an LR(1) parser generator for Rust.
 The project is powered by [Language Server Protocol](https://microsoft.github.io/language-server-protocol) implementation for Rust based on [Tower](https://github.com/tower-rs/tower).
 It's also based on [tower-lsp-boilerplate](https://github.com/IWANABETHATGUY/tower-lsp-boilerplate), a useful github project template which makes writing new language servers easier.
+The syntax highlighting is provided by [LALRPOP syntax highlighting for VS Code](https://github.com/guyutongxue/VSC_LalrpopHighlight?tab=readme-ov-file) by [guyutongxue](https://github.com/guyutongxue).
 
 ## Development using VSCode
 1. `pnpm i`

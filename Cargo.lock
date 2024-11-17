@@ -506,7 +506,6 @@ version = "0.22.0"
 dependencies = [
  "ascii-canvas",
  "bit-set",
- "dashmap 6.1.0",
  "ena",
  "itertools",
  "lalrpop-util",
@@ -517,7 +516,6 @@ dependencies = [
  "sha3",
  "string_cache",
  "term",
- "tower-lsp",
  "unicode-xid",
  "walkdir",
 ]
@@ -526,6 +524,7 @@ dependencies = [
 name = "lalrpop-lsp"
 version = "0.1.0"
 dependencies = [
+ "dashmap 6.1.0",
  "env_logger",
  "lalrpop",
  "tokio",

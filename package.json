@@ -81,7 +81,6 @@
     "watch": "rm -rf dist && tsc -b -w",
     "lint": "eslint src --ext ts",
     "pretest": "npm run compile && npm run lint",
-    "test": "node ./out/test/runTest.js",
     "build": "webpack --config webpack.config.js",
     "package": "vsce package --no-dependencies",
     "publish": "vsce publish --no-dependencies"

@@ -99,12 +99,18 @@ function isLanguageServerInstalled(): Promise<boolean> {
 
 function installLanguageServer(): Promise<void> {
   return new Promise((resolve, reject) => {
-    const install = spawn("cargo", ["install", "--git", "https://github.com/LighghtEeloo/lalrpop-lsp.git"]);
-    install.on("exit", (code) => {
-      if (code === 0) {
-        resolve();
+    window.showInformationMessage("LALRPOP language server is not installed. Would you like to install it?", "Yes", "No").then((answer) => {
+      if (answer === "Yes") {
+        const install = spawn("cargo", ["install", "--git", "https://github.com/LighghtEeloo/lalrpop-lsp.git"]);
+        install.on("exit", (code) => {
+          if (code === 0) {
+            resolve();
+          } else {
+            reject(new Error("Failed to install LALRPOP language server"));
+          }
+        });
       } else {
-        reject(new Error("Failed to install LALRPOP language server"));
+        reject(new Error("LALRPOP language server is not installed"));
       }
     });
   });

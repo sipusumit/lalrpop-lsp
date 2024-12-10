@@ -1,11 +1,10 @@
 # LALRPOP language server
 
-## Introduction
 This repo holds a language server for [LALRPOP](https://github.com/lalrpop/lalrpop), an LR(1) parser generator for Rust.
 
 ## Installation
 Install the extension from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=LitiaEeloo.lalrpop-language-server).
-The extension will try to download the language server binary through cargo if it doesn't see `lalrpop-lsp` in `PATH`. You can always remove the downloaded binary by running `cargo uninstall lalrpop-lsp` and switch to a manually downloaded version.
+The first cold start up will be **slow** because the extension will try to install the language server binary through `cargo` if it doesn't see `lalrpop-lsp` in `PATH`. You can always remove the downloaded binary by running `cargo uninstall lalrpop-lsp` and switch to a manually downloaded version.
 
 ## Head's up (!)
 

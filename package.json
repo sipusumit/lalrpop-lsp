@@ -25,6 +25,9 @@
     "onLanguage:LALRPOP"
   ],
   "main": "./dist/extension.js",
+  "files": [
+    "dist"
+  ],
   "contributes": {
     "languages": [
       {

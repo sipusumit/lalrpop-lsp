@@ -79,6 +79,7 @@ impl LanguageServer for LalrpopLsp {
                 )),
                 definition_provider: Some(OneOf::Left(true)),
                 references_provider: Some(OneOf::Left(true)),
+                hover_provider: Some(HoverProviderCapability::Simple(true)),
                 workspace: Some(WorkspaceServerCapabilities {
                     workspace_folders: Some(WorkspaceFoldersServerCapabilities {
                         supported: Some(true),
@@ -259,6 +260,51 @@ impl LanguageServer for LalrpopLsp {
                         })
                         .collect(),
                 ));
+            }
+        }
+        Ok(None)
+    }
+
+    async fn hover(&self, params: HoverParams) -> Result<Option<Hover>> {
+        let uri = params.text_document_position_params.text_document.uri;
+        let Some(file) = self.files.get(uri.as_str()) else {
+            return Ok(None);
+        };
+        let position = params.text_document_position_params.position;
+        let Some(offset) =
+            file.offset_from_line_col(position.line as usize, position.character as usize)
+        else {
+            return Ok(None);
+        };
+        let hits = file.hit_offset_in_spans(offset);
+        // self.client
+        //     .log_message(
+        //         MessageType::INFO,
+        //         format!("hover hits: {:#?}", hits),
+        //     )
+        //     .await;
+        let Some((span, span_item)) = LalrpopFile::closest_hit(hits) else {
+            return Ok(None);
+        };
+        match span_item {
+            SpanItem::Grammar => {}
+            SpanItem::Definition(def) | SpanItem::Reference(def) => {
+                let Some(Some(type_decl)) = file.definition_type_decls.get(&def) else {
+                    return Ok(None);
+                };
+                let contents = HoverContents::Markup(MarkupContent {
+                    kind: MarkupKind::Markdown,
+                    value: format!("`{}`: `{}`", def, type_decl),
+                });
+                let range = {
+                    let start = Self::offset_to_position(&file, span.0);
+                    let end = Self::offset_to_position(&file, span.1);
+                    Range { start, end }
+                };
+                return Ok(Some(Hover {
+                    contents,
+                    range: Some(range),
+                }));
             }
         }
         Ok(None)

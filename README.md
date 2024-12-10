@@ -2,9 +2,6 @@
 
 ## Introduction
 This repo holds a language server for [LALRPOP](https://github.com/lalrpop/lalrpop), an LR(1) parser generator for Rust.
-The project is powered by [Language Server Protocol](https://microsoft.github.io/language-server-protocol) implementation for Rust based on [Tower](https://github.com/tower-rs/tower).
-It's also based on [tower-lsp-boilerplate](https://github.com/IWANABETHATGUY/tower-lsp-boilerplate), a useful github project template which makes writing new language servers easier.
-The syntax highlighting is provided by [LALRPOP syntax highlighting for VS Code](https://github.com/guyutongxue/VSC_LalrpopHighlight?tab=readme-ov-file) by [guyutongxue](https://github.com/guyutongxue).
 
 ## Installation
 Install the extension from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=LitiaEeloo.lalrpop-language-server).
@@ -12,13 +9,12 @@ The extension will try to download the language server binary through cargo if i
 
 ## Head's up (!)
 
-This extension is still in active development, so please report any issues you encounter.
+This extension is still in active development, so please report any issue you encounter [here](https://github.com/LighghtEeloo/lalrpop-lsp/issues).
 
 ## Features
 
-<!-- - [ ] InlayHint for LiteralType
-
-- [ ] semantic token   
+<!--
+- [ ] Semantic tokenization
 make sure your semantic token is enabled, you could enable your `semantic token` by
 adding this line  to your `settings.json`
 ```json
@@ -27,15 +23,18 @@ adding this line  to your `settings.json`
 }
 ```
 
-- [ ] syntactic error diagnostic
+- [ ] Syntactic error diagnostic
 
-- [ ] code completion -->
+- [ ] Code completion
+-->
 
-- [x] go to definition
+- [x] Go to definition
 
-- [x] find reference
+- [x] Find references
 
-- [ ] rename
+- [x] Hover (though it's kinda basic right now)
+
+- [ ] Rename
 
 ## Development using VSCode
 1. `pnpm i`
@@ -49,7 +48,8 @@ adding this line  to your `settings.json`
 > If encountered errors like `Cannot find module '/xxx/xxx/dist/extension.js'`
 > please try run command `tsc -b` manually, you could refer https://github.com/IWANABETHATGUY/tower-lsp-boilerplate/issues/6 for more details
 
+## Credits
 
-
-
-
+The project is powered by [Language Server Protocol](https://microsoft.github.io/language-server-protocol) [implementation](https://github.com/ebkalderon/tower-lsp) for Rust based on [Tower](https://github.com/tower-rs/tower).
+It's also based on [tower-lsp-boilerplate](https://github.com/IWANABETHATGUY/tower-lsp-boilerplate), a useful github project template which makes writing new language servers easier.
+The syntax highlighting is provided by [LALRPOP syntax highlighting for VS Code](https://github.com/guyutongxue/VSC_LalrpopHighlight?tab=readme-ov-file) by [guyutongxue](https://github.com/guyutongxue).

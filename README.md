@@ -8,6 +8,11 @@ The syntax highlighting is provided by [LALRPOP syntax highlighting for VS Code]
 
 ## Installation
 Install the extension from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=LitiaEeloo.lalrpop-language-server).
+The extension will try to download the language server binary through cargo if it doesn't see `lalrpop-lsp` in `PATH`. You can always remove the downloaded binary by running `cargo uninstall lalrpop-lsp` and switch to a manually downloaded version.
+
+## Head's up (!)
+
+This extension is still in active development, so please report any issues you encounter.
 
 ## Features
 

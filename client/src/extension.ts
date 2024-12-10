@@ -31,11 +31,23 @@ import {
   ServerOptions,
 } from "vscode-languageclient/node";
 
+import { exec, spawn } from 'child_process';
+
 let client: LanguageClient;
 // type a = Parameters<>;
 
 export async function activate(context: ExtensionContext) {
   const traceOutputChannel = window.createOutputChannel("LALRPOP Language Server trace");
+
+  if (!(await isLanguageServerInstalled())) {
+    try {
+      await installLanguageServer();
+    } catch (error) {
+      window.showErrorMessage(error.message);
+      return;
+    }
+  }
+
   const command = process.env.SERVER_PATH || "lalrpop-lsp";
   const run: Executable = {
     command,
@@ -76,3 +88,24 @@ export function deactivate(): Thenable<void> | undefined {
   return client.stop();
 }
 
+function isLanguageServerInstalled(): Promise<boolean> {
+  return new Promise((resolve) => {
+    exec(`command -v lalrpop-lsp`, (error) => {
+      // If the command is not found, the error code is 127
+      resolve(!error);
+    });
+  });
+}
+
+function installLanguageServer(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const install = spawn("cargo", ["install", "--git", "https://github.com/LighghtEeloo/lalrpop-lsp.git"]);
+    install.on("exit", (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error("Failed to install LALRPOP language server"));
+      }
+    });
+  });
+}

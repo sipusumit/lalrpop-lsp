@@ -21,6 +21,7 @@ import {
   TextEdit,
   Selection,
   Uri,
+  ProgressLocation,
 } from "vscode";
 
 import {
@@ -99,19 +100,36 @@ function isLanguageServerInstalled(): Promise<boolean> {
 
 function installLanguageServer(): Promise<void> {
   return new Promise((resolve, reject) => {
-    window.showInformationMessage("LALRPOP language server is not installed. Would you like to install it?", "Yes", "No").then((answer) => {
-      if (answer === "Yes") {
-        const install = spawn("cargo", ["install", "--git", "https://github.com/LighghtEeloo/lalrpop-lsp.git"]);
-        install.on("exit", (code) => {
-          if (code === 0) {
-            resolve();
-          } else {
-            reject(new Error("Failed to install LALRPOP language server"));
-          }
-        });
-      } else {
-        reject(new Error("LALRPOP language server is not installed"));
+    window.showInformationMessage(
+      "No lalrpop-lsp installation found. Install it via cargo?",
+      "Yes", "No"
+    ).then((answer) => {
+      if (answer !== "Yes") {
+        return reject(new Error("Missing lalrpop-lsp binary \\(シ)/"));
       }
+      window.withProgress(
+        {
+          location: ProgressLocation.Notification,
+          title: 'Installing lalrpop-lsp from cargo (ノ*°▽°*)',
+          cancellable: false
+        },
+        async (progress, _) => {
+          await new Promise((resolve: (_: void) => void) => {
+            const install = spawn("cargo", [
+              "install", "--git",
+              "https://github.com/LighghtEeloo/lalrpop-lsp.git"
+            ]);
+            install.on("exit", (code) => {
+              if (code === 0) {
+                window.showInformationMessage("Successfully installed lalrpop-lsp (❁´◡`❁)");
+                resolve();
+              } else {
+                reject(new Error("Failed to install LALRPOP language server (×_×)"));
+              }
+            });
+          })
+        }
+      ).then(() => { resolve() })
     });
   });
 }

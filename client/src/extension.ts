@@ -40,7 +40,9 @@ let client: LanguageClient;
 export async function activate(context: ExtensionContext) {
   const traceOutputChannel = window.createOutputChannel("LALRPOP Language Server trace");
 
-  if (!(await isLanguageServerInstalled())) {
+  const command = process.env.SERVER_PATH || "lalrpop-lsp";
+
+  if (!(await isLanguageServerInstalled(command))) {
     try {
       await installLanguageServer();
     } catch (error) {
@@ -49,7 +51,6 @@ export async function activate(context: ExtensionContext) {
     }
   }
 
-  const command = process.env.SERVER_PATH || "lalrpop-lsp";
   const run: Executable = {
     command,
     options: {
@@ -89,9 +90,9 @@ export function deactivate(): Thenable<void> | undefined {
   return client.stop();
 }
 
-function isLanguageServerInstalled(): Promise<boolean> {
+function isLanguageServerInstalled(command): Promise<boolean> {
   return new Promise((resolve) => {
-    exec(`command -v lalrpop-lsp`, (error) => {
+    exec(`command -v ${command}`, (error) => {
       // If the command is not found, the error code is 127
       resolve(!error);
     });

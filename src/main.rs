@@ -1,4 +1,4 @@
-use lalrpop::lsp::{LalrpopFile, SpanItem};
+use lalrpop::lsp::{DiagnosticError, LalrpopFile, SpanItem, TypeDecl};
 use tower_lsp::{LspService, Server};
 
 use dashmap::DashMap;
@@ -40,7 +40,54 @@ impl LalrpopLsp {
             .await;
 
         let uri = params.uri.to_string();
-        let file = LalrpopFile::new(params.text.as_str());
+        let file = match LalrpopFile::new(params.text.as_str()) {
+            Ok(file) => file,
+            Err(DiagnosticError {
+                loc,
+                message,
+                io_error: _,
+            }) => {
+                let range = {
+                    let (_lo, _hi) = match loc {
+                        lalrpop::lsp::ErrorLoc::Point(loc) => (loc, loc + 1),
+                        lalrpop::lsp::ErrorLoc::Span(lo, hi) => (lo, hi),
+                    };
+                    // Todo..
+                    // let start = Self::offset_to_position(&file, lo);
+                    // let end = Self::offset_to_position(&file, hi);
+                    let start = Position {
+                        line: 0,
+                        character: 0,
+                    };
+                    let end = Position {
+                        line: 0,
+                        character: 0,
+                    };
+                    Range { start, end }
+                };
+                // self.client
+                //     .log_message(MessageType::ERROR, format!("error: {}", err.message))
+                //     .await;
+                self.client
+                    .publish_diagnostics(
+                        params.uri,
+                        vec![Diagnostic {
+                            range,
+                            severity: None,
+                            code: None,
+                            code_description: None,
+                            source: None,
+                            message,
+                            related_information: None,
+                            tags: None,
+                            data: None,
+                        }],
+                        Some(params.version),
+                    )
+                    .await;
+                return;
+            }
+        };
 
         // self.client
         //     .log_message(MessageType::INFO, format!("parsed:\n{:#?}", file.tree))
@@ -289,12 +336,18 @@ impl LanguageServer for LalrpopLsp {
         match span_item {
             SpanItem::Grammar => {}
             SpanItem::Definition(def) | SpanItem::Reference(def) => {
-                let Some(Some(type_decl)) = file.definition_type_decls.get(&def) else {
+                let Some(TypeDecl { args, ret }) = file.definition_type_decls.get(&def) else {
                     return Ok(None);
                 };
+                let type_decl = format!(
+                    "<{}>{}",
+                    args.join(", "),
+                    ret.as_ref()
+                        .map_or("".to_string(), |ty| format!(": {}", ty))
+                );
                 let contents = HoverContents::Markup(MarkupContent {
                     kind: MarkupKind::Markdown,
-                    value: format!("`{}`: `{}`", def, type_decl),
+                    value: format!(r#"`{}{}`"#, def, type_decl),
                 });
                 let range = {
                     let start = Self::offset_to_position(&file, span.0);

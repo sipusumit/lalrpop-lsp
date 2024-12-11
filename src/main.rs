@@ -48,20 +48,17 @@ impl LalrpopLsp {
                 io_error: _,
             }) => {
                 let range = {
-                    let (_lo, _hi) = match loc {
-                        lalrpop::lsp::ErrorLoc::Point(loc) => (loc, loc + 1),
-                        lalrpop::lsp::ErrorLoc::Span(lo, hi) => (lo, hi),
+                    let (lo, hi) = match loc {
+                        lalrpop::lsp::ErrorLoc::Point(line, col) => ((line, col), (line, col + 1)),
+                        lalrpop::lsp::ErrorLoc::Span { lo, hi } => (lo, hi),
                     };
-                    // Todo..
-                    // let start = Self::offset_to_position(&file, lo);
-                    // let end = Self::offset_to_position(&file, hi);
                     let start = Position {
-                        line: 0,
-                        character: 0,
+                        line: lo.0 as u32,
+                        character: lo.1 as u32,
                     };
                     let end = Position {
-                        line: 0,
-                        character: 0,
+                        line: hi.0 as u32,
+                        character: hi.1 as u32,
                     };
                     Range { start, end }
                 };
@@ -76,7 +73,7 @@ impl LalrpopLsp {
                             severity: None,
                             code: None,
                             code_description: None,
-                            source: None,
+                            source: Some("lalrpop".to_string()),
                             message,
                             related_information: None,
                             tags: None,
@@ -104,6 +101,10 @@ impl LalrpopLsp {
 
         // update
         self.files.insert(uri.clone(), file);
+        // refresh diagnostics
+        self.client
+            .publish_diagnostics(params.uri, vec![], Some(params.version))
+            .await;
     }
 
     /// A helper function to convert an offset to a position.

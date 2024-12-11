@@ -340,14 +340,18 @@ impl LanguageServer for LalrpopLsp {
                     return Ok(None);
                 };
                 let type_decl = format!(
-                    "<{}>{}",
-                    args.join(", "),
+                    "{}{}",
+                    if args.len() > 0 {
+                        format!("<{}>", args.join(", "))
+                    } else {
+                        "".to_string()
+                    },
                     ret.as_ref()
                         .map_or("".to_string(), |ty| format!(": {}", ty))
                 );
                 let contents = HoverContents::Markup(MarkupContent {
                     kind: MarkupKind::Markdown,
-                    value: format!(r#"`{}{}`"#, def, type_decl),
+                    value: format!("```LALRPOP\n{}{}\n```", def, type_decl),
                 });
                 let range = {
                     let start = Self::offset_to_position(&file, span.0);

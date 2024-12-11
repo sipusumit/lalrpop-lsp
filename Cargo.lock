@@ -621,7 +621,7 @@ dependencies = [
 [[package]]
 name = "lalrpop"
 version = "0.22.0"
-source = "git+https://github.com/LighghtEeloo/lalrpop.git?branch=lsp#7fb8c444778de6d1d30b718077461b8e248de930"
+source = "git+https://github.com/LighghtEeloo/lalrpop.git?branch=lsp#9d4f2d2a1c8d9fca3e1a83d11ea885966fccdc97"
 dependencies = [
  "ascii-canvas",
  "bit-set",
@@ -653,7 +653,7 @@ dependencies = [
 [[package]]
 name = "lalrpop-util"
 version = "0.22.0"
-source = "git+https://github.com/LighghtEeloo/lalrpop.git?branch=lsp#7fb8c444778de6d1d30b718077461b8e248de930"
+source = "git+https://github.com/LighghtEeloo/lalrpop.git?branch=lsp#9d4f2d2a1c8d9fca3e1a83d11ea885966fccdc97"
 dependencies = [
  "regex-automata",
  "rustversion",
@@ -859,9 +859,9 @@ dependencies = [
 
 [[package]]
 name = "redox_syscall"
-version = "0.5.7"
+version = "0.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b6dfecf2c74bce2466cabf93f6664d6998a69eb21e39f4207930065b27b771f"
+checksum = "03a862b389f93e68874fbf580b9de08dd02facb9a788ebadaf4a3fd33cf58834"
 dependencies = [
  "bitflags 2.6.0",
 ]

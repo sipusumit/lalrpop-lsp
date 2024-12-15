@@ -135,6 +135,7 @@ impl LanguageServer for LalrpopLsp {
                     }),
                     file_operations: None,
                 }),
+                document_symbol_provider: Some(OneOf::Left(true)),
                 // semantic_tokens_provider: Some(
                 //     SemanticTokensServerCapabilities::SemanticTokensRegistrationOptions(
                 //         SemanticTokensRegistrationOptions {
@@ -366,6 +367,35 @@ impl LanguageServer for LalrpopLsp {
             }
         }
         Ok(None)
+    }
+    async fn document_symbol(
+        &self,
+        params: DocumentSymbolParams,
+    ) -> Result<Option<DocumentSymbolResponse>> {
+        let uri = params.text_document.uri;
+        let Some(file) = self.files.get(uri.as_str()) else {
+            return Ok(None);
+        };
+        let mut symbols = vec![];
+        for (def, span) in &file.definitions {
+            let range = {
+                let start = Self::offset_to_position(&file, span.0);
+                let end = Self::offset_to_position(&file, span.1);
+                Range { start, end }
+            };
+            #[allow(deprecated)]
+            symbols.push(DocumentSymbol {
+                name: def.to_owned(),
+                detail: None,
+                kind: SymbolKind::FUNCTION,
+                tags: None,
+                deprecated: None,
+                range,
+                selection_range: range,
+                children: None,
+            });
+        }
+        Ok(Some(DocumentSymbolResponse::Nested(symbols)))
     }
 }
 

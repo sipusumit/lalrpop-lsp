@@ -28,16 +28,16 @@ adding this line  to your `settings.json`
 -->
 
 - Go to Definition
-    ![Go to Definition](docs/go-to-definition.webm)
+    ![Go to Definition](docs/go-to-definition.gif)
 
 - Find References
-    ![Find References](docs/find-references.webm)
+    ![Find References](docs/find-references.gif)
 
 - Hover
-    ![Hover](docs/hover.webm)
+    ![Hover](docs/hover.gif)
 
 - Error Diagnostics
-    ![Error Diagnostics](docs/error-diagnostics.webm)
+    ![Error Diagnostics](docs/error-diagnostics.gif)
 
 ## Development using VSCode
 1. `pnpm i`

@@ -28,16 +28,16 @@ adding this line  to your `settings.json`
 -->
 
 - Go to Definition
-    ![Go to Definition](docs/go-to-definition.mp4)
+    ![Go to Definition](/docs/go-to-definition.mp4)
 
 - Find References
-    ![Find References](docs/find-references.mp4)
+    ![Find References](/docs/find-references.mp4)
 
 - Hover
-    ![Hover](docs/hover.mp4)
+    ![Hover](/docs/hover.mp4)
 
 - Error Diagnostics
-    ![Error Diagnostics](docs/error-diagnostics.mp4)
+    ![Error Diagnostics](/docs/error-diagnostics.mp4)
 
 ## Development using VSCode
 1. `pnpm i`

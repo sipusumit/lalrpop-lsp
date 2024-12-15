@@ -27,13 +27,17 @@ adding this line  to your `settings.json`
 - [ ] Code completion
 -->
 
-- [x] Go to definition
+- Go to Definition
+    ![Go to Definition](docs/go-to-definition.webm)
 
-- [x] Find references
+- Find References
+    ![Find References](docs/find-references.webm)
 
-- [x] Hover (though it's kinda basic right now)
+- Hover
+    ![Hover](docs/hover.webm)
 
-- [ ] Rename
+- Error Diagnostics
+    ![Error Diagnostics](docs/error-diagnostics.webm)
 
 ## Development using VSCode
 1. `pnpm i`

@@ -28,16 +28,16 @@ adding this line  to your `settings.json`
 -->
 
 - Go to Definition
-    ![Go to Definition](/docs/go-to-definition.mp4)
+    ![Go to Definition](https://github.com/user-attachments/assets/978cc716-eae6-48d6-828c-7f273982a4aa)
 
 - Find References
-    ![Find References](/docs/find-references.mp4)
+    ![Find References](https://github.com/user-attachments/assets/e20bfdf5-6e0d-4d97-99fc-4ab06db0ddd2)
 
 - Hover
-    ![Hover](/docs/hover.mp4)
+    ![Hover](https://github.com/user-attachments/assets/38055a83-8d9d-489a-ace9-979337a635ac)
 
 - Error Diagnostics
-    ![Error Diagnostics](/docs/error-diagnostics.mp4)
+    ![Error Diagnostics](https://github.com/user-attachments/assets/beaf18a2-3bff-4065-9bbe-7a09be082c01)
 
 ## Development using VSCode
 1. `pnpm i`

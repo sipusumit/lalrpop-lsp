@@ -45,7 +45,6 @@ impl LalrpopLsp {
             Err(DiagnosticError {
                 loc,
                 message,
-                io_error: _,
             }) => {
                 let range = {
                     let (lo, hi) = match loc {

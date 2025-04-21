@@ -33,7 +33,6 @@ import {
 } from "vscode-languageclient/node";
 
 import { exec, spawn } from 'child_process';
-import 'which' ;
 import which = require("which");
 
 let client: LanguageClient;
